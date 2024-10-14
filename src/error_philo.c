@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       ::::::::             */
-/*   main.c                                            :+:    :+:             */
+/*   error_philo.c                                     :+:    :+:             */
 /*                                                    +:+                     */
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
-/*   Created: 2024/10/14 23:48:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/15 00:16:41 by sreerink      ########   odam.nl         */
+/*   Created: 2024/10/14 23:56:39 by sreerink      #+#    #+#                 */
+/*   Updated: 2024/10/15 00:10:03 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int argc, char *argv[])
+int	error_philo(const char *msg, t_table *table)
 {
-	if (argc != 5 && argc != 6)
-		return (error_philo("program requires 4 or 5 arguments", NULL));
-	return (EXIT_SUCCESS);
+	if (msg)
+	{
+		write(STDERR_FILENO, "philo: ", 7);
+		write(STDERR_FILENO, msg, ft_strlen(msg));
+		write(STDERR_FILENO, "\n", 1);
+	}
+/*	if (table)
+		// free table; */
+	return (EXIT_FAILURE);
 }
