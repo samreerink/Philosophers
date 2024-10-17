@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/07/18 20:55:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/15 01:47:19 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/17 03:22:06 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ typedef struct s_fork
 
 typedef struct s_philo
 {
+	pthread_t	philo_thread;
 	int			philo_id;
 	long		n_times_eaten;
 	long		last_time_eaten;
 	bool		max_eaten;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
-	pthread_t	thread_id;
 }	t_philo;
 
 typedef struct s_table
@@ -48,15 +48,15 @@ typedef struct s_table
 	long	time_to_sleep;
 	long	max_nbr_eat;
 	long	start_philo_time;
-	bool	end_philo;
+	bool	end_philo_sim;
+	t_mtx	msg_printing;
 	t_fork	*forks;
 	t_philo	*philos;
 }	t_table;
 
-
-
 int		error_philo(const char *msg, t_table *table);
-size_t	ft_strlen(const char *s);
 int		parse_input(char **argv, t_table *table);
+void	*ft_calloc(size_t count, size_t size);
+size_t	ft_strlen(const char *s);
 
 #endif
