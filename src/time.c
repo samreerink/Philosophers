@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       ::::::::             */
-/*   main.c                                            :+:    :+:             */
+/*   time.c                                            :+:    :+:             */
 /*                                                    +:+                     */
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
-/*   Created: 2024/10/14 23:48:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/18 22:56:21 by sreerink      ########   odam.nl         */
+/*   Created: 2024/10/19 01:09:10 by sreerink      #+#    #+#                 */
+/*   Updated: 2024/10/19 01:25:53 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int argc, char *argv[])
+un_long	get_time(void)
 {
-	t_table	*table;
+	struct timeval	tv;
 
-	if (argc != 5 && argc != 6)
-		return (error_philo("program requires 4 or 5 arguments", NULL));
-	table = ft_calloc(1, sizeof(t_table));
-	if (!table)
-		return (error_philo("allocation failed", NULL));
-	if (parse_input(argv, table) == 1)
-		return (error_philo("one or more inputs are invalid", NULL));
-	init_data(table);
-	philo_simulation(table);
-	return (0);
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
