@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/19 01:09:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/19 01:25:53 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/22 00:04:47 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,27 @@ un_long	get_time(void)
 
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+void	improved_usleep(int sleep_time, t_table *table)
+{
+	un_long	start;
+	un_long	elapsed;
+	un_long	rem_usec;
+
+	start = get_time();
+	while (get_time() - start < sleep_time)
+	{
+		if (simulation_finished(table))
+			return ;
+		elapsed = get_time() - start;
+		rem_usec = (sleep_time - elapsed) * 1000;
+		if (rem_usec > 1000)
+			usleep(rem_usec / 2);
+		else
+		{
+			while (get_time() - start < sleep_time)
+				;
+		}
+	}
 }

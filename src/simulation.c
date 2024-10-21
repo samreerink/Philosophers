@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/18 22:57:57 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/19 01:55:41 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/21 23:03:25 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*dinner_start(void *data)
 	wait_sync_threads(philo->table);
 	while (!simulation_finished(philo->table))
 	{
-		if (safe_get_bool(&philo->table->table_mutex, &philo->max_eaten))
+		if (safe_get_bool(philo->philo_mutex, &philo->max_eaten))
 			break ;
 	}
 	return (NULL);

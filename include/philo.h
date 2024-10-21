@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/07/18 20:55:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/19 01:32:14 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/21 23:28:20 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_philo
 	bool			max_eaten;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
+	pthread_mutex_t	*philo_mutex;
 	t_table			*table;
 }	t_philo;
 
@@ -67,6 +68,7 @@ void	safe_set_long(pthread_mutex_t *mtx, un_long *dest, un_long new_val);
 un_long	safe_get_long(pthread_mutex_t *mtx, un_long *val_to_get);
 bool	simulation_finished(t_table *table);
 un_long	get_time(void);
+void	improved_usleep(int sleep_time, t_table *table);
 int		philo_simulation(t_table *table);
 void	*ft_calloc(size_t count, size_t size);
 size_t	ft_strlen(const char *s);
