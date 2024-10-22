@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/07/18 20:55:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/21 23:28:20 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/22 04:52:33 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,15 @@
 # include <pthread.h>
 
 typedef struct s_table	t_table;
-typedef unsigned long	un_long;
+
+typedef enum s_action
+{
+	EAT,
+	SLEEP,
+	THINK,
+	TAKE_FORK,
+	DIED,
+} t_action;
 
 typedef struct s_fork
 {
@@ -34,12 +42,12 @@ typedef struct s_philo
 {
 	pthread_t		philo_thread;
 	int				philo_id;
-	int				n_times_eaten;
-	un_long			last_time_eaten;
+	long			n_times_eaten;
+	long			last_time_eaten;
 	bool			max_eaten;
-	t_fork			*left_fork;
-	t_fork			*right_fork;
-	pthread_mutex_t	*philo_mutex;
+	t_fork			*first;
+	t_fork			*second;
+	pthread_mutex_t	philo_mutex;
 	t_table			*table;
 }	t_philo;
 
@@ -50,7 +58,7 @@ struct s_table
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				max_nbr_eat;
-	un_long			philo_start_time;
+	long			philo_start_time;
 	bool			end_philo_sim;
 	bool			threads_ready;
 	pthread_mutex_t	table_mutex;
@@ -64,12 +72,16 @@ int		parse_input(char **argv, t_table *table);
 int		init_data(t_table *table);
 void	safe_set_bool(pthread_mutex_t *mtx, bool *dest, bool new_val);
 bool	safe_get_bool(pthread_mutex_t *mtx, bool *val_to_get);
-void	safe_set_long(pthread_mutex_t *mtx, un_long *dest, un_long new_val);
-un_long	safe_get_long(pthread_mutex_t *mtx, un_long *val_to_get);
+void	safe_set_long(pthread_mutex_t *mtx, long *dest, long new_val);
+long	safe_get_long(pthread_mutex_t *mtx, long *val_to_get);
 bool	simulation_finished(t_table *table);
-un_long	get_time(void);
+long	get_time(void);
 void	improved_usleep(int sleep_time, t_table *table);
 int		philo_simulation(t_table *table);
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
+void	write_philo_action(t_philo *philo, t_action action);
 void	*ft_calloc(size_t count, size_t size);
 size_t	ft_strlen(const char *s);
 

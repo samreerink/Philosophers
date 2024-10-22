@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/18 23:46:08 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/19 01:19:00 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/22 03:25:05 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ bool	safe_get_bool(pthread_mutex_t *mtx, bool *val_to_get)
 	return (val);
 }
 
-void	safe_set_long(pthread_mutex_t *mtx, un_long *dest, un_long new_val)
+void	safe_set_long(pthread_mutex_t *mtx, long *dest, long new_val)
 {
 	pthread_mutex_lock(mtx);
 	*dest = new_val;
 	pthread_mutex_unlock(mtx);
 }
 
-un_long	safe_get_long(pthread_mutex_t *mtx, un_long *val_to_get)
+long	safe_get_long(pthread_mutex_t *mtx, long *val_to_get)
 {
-	unsigned long	val;
+	long	val;
 
 	pthread_mutex_lock(mtx);
 	val = *val_to_get;

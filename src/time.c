@@ -6,13 +6,13 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/19 01:09:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/22 00:04:47 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/22 03:23:54 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-un_long	get_time(void)
+long	get_time(void)
 {
 	struct timeval	tv;
 
@@ -22,9 +22,9 @@ un_long	get_time(void)
 
 void	improved_usleep(int sleep_time, t_table *table)
 {
-	un_long	start;
-	un_long	elapsed;
-	un_long	rem_usec;
+	long	start;
+	long	elapsed;
+	long	rem_usec;
 
 	start = get_time();
 	while (get_time() - start < sleep_time)
