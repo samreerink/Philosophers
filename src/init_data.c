@@ -6,11 +6,31 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/17 05:12:38 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/22 04:57:17 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/27 16:05:30 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+static void	check_think_time(t_table *table)
+{
+	int	t_think;
+	int	t_eat;
+	int	t_sleep;
+	int	t_die;
+
+	t_think = 0;
+	t_eat = table->time_to_eat;
+	t_sleep = table->time_to_sleep;
+	t_die = table->time_to_die;
+	if (table->philo_n % 2 != 0 || t_eat >= t_sleep)
+	{
+		t_think = t_eat * 2 - t_sleep;
+		if (table->philo_n % 2 == 0 && t_think + t_eat + t_sleep > t_die)
+			t_think = 0;
+	}
+	table->time_to_think = t_think;
+}
 
 // right_fork = table->forks + i;
 // left_fork = table->forks + ((i + 1) % table->philo_n);
@@ -36,7 +56,6 @@ static bool	assign_philos(t_table *table)
 		}
 		if (pthread_mutex_init(&philo->philo_mutex, NULL) != 0)
 			return (false);
-		//printf("Philo #%d: first_fork_id %d, second_fork_id %d\n", philo->philo_id, philo->first->fork_id, philo->second->fork_id);
 		philo->table = table;
 		i++;
 	}
@@ -48,7 +67,7 @@ int	init_data(t_table *table)
 	int	i;
 
 	i = 0;
-	table->end_philo_sim = false;
+	check_think_time(table);
 	table->philos = ft_calloc(table->philo_n, sizeof(t_philo));
 	table->forks = ft_calloc(table->philo_n, sizeof(t_fork));
 	if (!table->philos || !table->forks)

@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/18 23:46:08 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/22 03:25:05 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/23 01:09:19 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ long	safe_get_long(pthread_mutex_t *mtx, long *val_to_get)
 
 bool	simulation_finished(t_table *table)
 {
-	return (safe_get_bool(&table->table_mutex, &table->end_philo_sim));
+	return (safe_get_bool(&table->table_mutex, &table->end_philo));
 }

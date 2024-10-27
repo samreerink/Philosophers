@@ -6,21 +6,11 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/15 01:46:41 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/18 22:54:48 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/27 16:06:33 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
-static inline bool	is_digit(char c)
-{
-	return (c >= '0' && c <= '9');
-}
-
-static inline bool	is_whitespace(char c)
-{
-	return ((c >= 9 && c <= 13) || c == 32);
-}
 
 static char	*check_valid_input(char *str)
 {

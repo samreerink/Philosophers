@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/07/18 20:55:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/22 04:52:33 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/27 15:44:12 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ typedef struct s_philo
 	pthread_t		philo_thread;
 	int				philo_id;
 	long			n_times_eaten;
-	long			last_time_eaten;
-	bool			max_eaten;
+	long			last_time_eat;
 	t_fork			*first;
 	t_fork			*second;
 	pthread_mutex_t	philo_mutex;
@@ -57,10 +56,13 @@ struct s_table
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	int				time_to_think;
 	int				max_nbr_eat;
 	long			philo_start_time;
-	bool			end_philo_sim;
+	long			n_full;
+	bool			end_philo;
 	bool			threads_ready;
+	pthread_t		monitor_thread;
 	pthread_mutex_t	table_mutex;
 	pthread_mutex_t	msg_printing;
 	t_fork			*forks;
@@ -78,10 +80,15 @@ bool	simulation_finished(t_table *table);
 long	get_time(void);
 void	improved_usleep(int sleep_time, t_table *table);
 int		philo_simulation(t_table *table);
+void	wait_sync_threads(t_table *table);
+void	*monitor(void *data);
+void	*solo_philo(void *data);
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
 void	write_philo_action(t_philo *philo, t_action action);
+bool	is_digit(char c);
+bool	is_whitespace(char c);
 void	*ft_calloc(size_t count, size_t size);
 size_t	ft_strlen(const char *s);
 

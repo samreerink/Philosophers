@@ -6,11 +6,21 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/14 23:48:01 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/17 03:12:04 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/27 15:44:53 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+bool	is_digit(char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+bool	is_whitespace(char c)
+{
+	return ((c >= 9 && c <= 13) || c == 32);
+}
 
 static void	ft_bzero(void *s, size_t n)
 {

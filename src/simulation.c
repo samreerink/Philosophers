@@ -1,18 +1,16 @@
-/* ************************************************************************** */
-/*                                                                            */
 /*                                                       ::::::::             */
 /*   simulation.c                                      :+:    :+:             */
 /*                                                    +:+                     */
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/18 22:57:57 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/22 05:04:50 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/23 04:31:42 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-static void	wait_sync_threads(t_table *table)
+void	wait_sync_threads(t_table *table)
 {
 	while (!safe_get_bool(&table->table_mutex, &table->threads_ready))
 		;
@@ -27,23 +25,32 @@ void	*dinner_start(void *data)
 	while (!simulation_finished(philo->table))
 	{
 		philo_eat(philo);
-		if (philo->max_eaten)
-			break ;
 		philo_sleep(philo);
 		philo_think(philo);
 	}
 	return (NULL);
 }
 
-static bool	philo_threads(t_table *table)
+static bool	start_philo_threads(t_table *table)
 {
 	int	i;
 
 	i = 0;
+	if (table->philo_n == 1)
+	{
+		if (pthread_create(&table->philos[0].philo_thread, NULL, \
+					solo_philo, &table->philos[0]) != 0)
+		{
+			// error msg, perror is temp;
+			perror("philo");
+			return (false);
+		}
+		return (true);
+	}
 	while (i < table->philo_n)
 	{
 		if (pthread_create(&table->philos[i].philo_thread, NULL, \
-		dinner_start, &table->philos[i]) != 0)
+					dinner_start, &table->philos[i]) != 0)
 		{
 			// error msg, perror is temp;
 			perror("philo");
@@ -51,8 +58,13 @@ static bool	philo_threads(t_table *table)
 		}
 		i++;
 	}
-	table->philo_start_time = get_time();
-	safe_set_bool(&table->table_mutex, &table->threads_ready, true);
+	return (true);
+}
+
+static bool	join_philo_threads(t_table *table)
+{
+	int	i;
+
 	i = 0;
 	while (i < table->philo_n)
 	{
@@ -64,8 +76,6 @@ static bool	philo_threads(t_table *table)
 		}
 		i++;
 	}
-	safe_set_bool(&table->table_mutex, &table->end_philo_sim, true);
-	// pthread join monitor_thread;
 	return (true);
 }
 
@@ -75,8 +85,13 @@ int	philo_simulation(t_table *table)
 		return (0);
 	else
 	{
-		if (!philo_threads(table))
+		if (!start_philo_threads(table))
 			return (1);
+		pthread_create(&table->monitor_thread, NULL, monitor, table);
+		table->philo_start_time = get_time();
+		safe_set_bool(&table->table_mutex, &table->threads_ready, true);
+		join_philo_threads(table);
+		pthread_join(table->monitor_thread, NULL);
 	}
 	return (0);
 }
