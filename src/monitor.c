@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/22 20:54:21 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/30 17:44:39 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/03 21:48:15 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	*monitor(void *data)
 	t_table	*table;
 
 	table = (t_table *)data;
+	while (!safe_get_bool(&table->table_mutex, &table->threads_ready))
+		;
 	while (1)
 	{
 		i = 0;
