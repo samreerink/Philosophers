@@ -1,19 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                       ::::::::             */
 /*   simulation.c                                      :+:    :+:             */
 /*                                                    +:+                     */
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
-/*   Created: 2024/10/18 22:57:57 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/23 04:31:42 by sreerink      ########   odam.nl         */
+/*   Created: 2024/10/27 16:16:55 by sreerink      #+#    #+#                 */
+/*   Updated: 2024/11/03 19:47:39 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	wait_sync_threads(t_table *table)
+void	wait_sync_threads(t_philo *philo)
 {
+	t_table	*table;
+
+	table = philo->table;
 	while (!safe_get_bool(&table->table_mutex, &table->threads_ready))
 		;
+	if (table->philo_n % 2 == 0)
+	{
+		if (philo->philo_id % 2 == 0)
+			improved_usleep(3, table);
+	}
 }
 
 void	*dinner_start(void *data)
@@ -21,7 +31,7 @@ void	*dinner_start(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	wait_sync_threads(philo->table);
+	wait_sync_threads(philo);
 	while (!simulation_finished(philo->table))
 	{
 		philo_eat(philo);

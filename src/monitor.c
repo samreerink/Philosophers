@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/22 20:54:21 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/23 02:53:16 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/30 17:44:39 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	*monitor(void *data)
 	t_table	*table;
 
 	table = (t_table *)data;
-	wait_sync_threads(table);
 	while (1)
 	{
 		i = 0;

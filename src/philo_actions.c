@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/22 00:59:32 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/27 12:10:08 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/30 20:35:11 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*solo_philo(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	wait_sync_threads(philo->table);
+	wait_sync_threads(philo);
 	write_philo_action(philo, TAKE_FORK);
 	while (!simulation_finished(philo->table))
 		;

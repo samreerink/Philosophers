@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/07/18 20:55:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/27 15:44:12 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/30 20:35:00 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,16 @@ struct s_table
 int		error_philo(const char *msg, t_table *table);
 int		parse_input(char **argv, t_table *table);
 int		init_data(t_table *table);
+int		clean_data(t_table *table);
 void	safe_set_bool(pthread_mutex_t *mtx, bool *dest, bool new_val);
 bool	safe_get_bool(pthread_mutex_t *mtx, bool *val_to_get);
 void	safe_set_long(pthread_mutex_t *mtx, long *dest, long new_val);
 long	safe_get_long(pthread_mutex_t *mtx, long *val_to_get);
+void	wait_sync_threads(t_philo *philo);
 bool	simulation_finished(t_table *table);
 long	get_time(void);
 void	improved_usleep(int sleep_time, t_table *table);
 int		philo_simulation(t_table *table);
-void	wait_sync_threads(t_table *table);
 void	*monitor(void *data);
 void	*solo_philo(void *data);
 void	philo_eat(t_philo *philo);

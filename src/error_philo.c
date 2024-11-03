@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/14 23:56:39 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/15 04:54:42 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/10/28 18:08:40 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	error_philo(const char *msg, t_table *table)
 		write(STDERR_FILENO, msg, ft_strlen(msg));
 		write(STDERR_FILENO, "\n", 1);
 	}
-/*	if (table)
-		// free table; */
+	if (table)
+		clean_data(table);
 	return (1);
 }

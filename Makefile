@@ -6,7 +6,7 @@
 #    By: sreerink <sreerink@student.codam.nl>        +#+                       #
 #                                                   +#+                        #
 #    Created: 2024/07/18 20:44:53 by sreerink      #+#    #+#                  #
-#    Updated: 2024/10/22 21:04:20 by sreerink      ########   odam.nl          #
+#    Updated: 2024/10/28 17:56:44 by sreerink      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJ_DIR=	obj
 
 SRCS= 		$(addprefix $(SRC_DIR)/, main.c parsing.c error_philo.c \
 			init_data.c mutex_set_get.c simulation.c philo_actions.c \
-			monitor.c time.c utils.c)
+			monitor.c time.c clean_data.c utils.c)
 
 OBJ=		$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
