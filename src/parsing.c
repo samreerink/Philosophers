@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/15 01:46:41 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/11/04 20:03:09 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/04 21:43:50 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,25 @@
 static char	*check_valid_input(char *str)
 {
 	size_t	i;
+	size_t	pos_digit;
 
 	i = 0;
+	if (!str[i])
+		return (NULL);
 	while (is_whitespace(str[i]))
 		i++;
 	if (str[i] == '+')
 		i++;
-	if (!is_digit(str[i]))
+	pos_digit = i;
+	while (str[i])
+	{
+		if (!is_digit(str[i]))
+			return (NULL);
+		i++;
+	}
+	if (ft_strlen(str + pos_digit) > 10)
 		return (NULL);
-	if (ft_strlen(str + i) > 10)
-		return (NULL);
-	return (str + i);
+	return (str + pos_digit);
 }
 
 static long	ft_atol(char *str)
