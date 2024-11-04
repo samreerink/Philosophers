@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/14 23:48:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/27 16:38:38 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/04 20:03:53 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int	main(int argc, char *argv[])
 	if (!table)
 		return (error_philo("allocation failed", NULL));
 	if (parse_input(argv, table) == 1)
-		return (error_philo("one or more inputs are invalid", table));
-	init_data(table);
+		return (1);
+	if (init_data(table) == 1)
+		return (1);
 	philo_simulation(table);
 	clean_data(table);
 	return (0);

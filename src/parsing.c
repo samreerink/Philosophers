@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/15 01:46:41 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/27 16:06:33 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/04 20:03:09 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ int	parse_input(char **argv, t_table *table)
 	if (table->philo_n == -1 || table->time_to_die == -1 || \
 		table->time_to_eat == -1 || table->time_to_sleep == -1 || \
 		table->max_nbr_eat == -1)
-		return (1);
+		return (error_philo("one or more inputs are invalid", table));
 	return (0);
 }

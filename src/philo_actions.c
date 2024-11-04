@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/22 00:59:32 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/30 20:35:11 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/04 18:12:26 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	philo_eat(t_philo *philo)
 	write_philo_action(philo, TAKE_FORK);
 	pthread_mutex_lock(&philo->philo_mutex);
 	philo->last_time_eat = get_time();
-	//safe_set_long(&philo->philo_mutex, &philo->last_time_eat, get_time());
 	write_philo_action(philo, EAT);
 	pthread_mutex_unlock(&philo->philo_mutex);
 	improved_usleep(table->time_to_eat, table);

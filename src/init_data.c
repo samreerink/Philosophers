@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/17 05:12:38 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/10/30 17:41:38 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/04 20:08:57 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,23 @@ static bool	assign_philos(t_table *table)
 			philo->second = table->forks + i;
 		}
 		if (pthread_mutex_init(&philo->philo_mutex, NULL) != 0)
-			return (false);
+			return (free_philos(table, i));
 		philo->table = table;
+		i++;
+	}
+	return (true);
+}
+
+static bool	init_forks_mutex(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_n)
+	{
+		if (pthread_mutex_init(&table->forks[i].fork, NULL) != 0)
+			return (free_forks(table, i));
+		table->forks[i].fork_id = i + 1;
 		i++;
 	}
 	return (true);
@@ -64,26 +79,26 @@ static bool	assign_philos(t_table *table)
 
 int	init_data(t_table *table)
 {
-	int	i;
-
-	i = 0;
 	check_think_time(table);
-	table->philos = ft_calloc(table->philo_n, sizeof(t_philo));
-	table->forks = ft_calloc(table->philo_n, sizeof(t_fork));
-	if (!table->philos || !table->forks)
-		return (1);
 	if (pthread_mutex_init(&table->table_mutex, NULL) != 0)
-		return (1);
+		return (error_philo("pthread_mutex_init failed\n", table));
 	if (pthread_mutex_init(&table->msg_printing, NULL) != 0)
-		return (1);
-	while (i < table->philo_n)
+		return (error_philo("pthread_mutex_init failed\n", table));
+	table->philos = ft_calloc(table->philo_n, sizeof(t_philo));
+	if (!table->philos)
+		return (error_philo("allocation failed\n", table));
+	table->forks = ft_calloc(table->philo_n, sizeof(t_fork));
+	if (!table->forks)
 	{
-		if (pthread_mutex_init(&table->forks[i].fork, NULL) != 0)
-			return (1);
-		table->forks[i].fork_id = i + 1;
-		i++;
+		free_philos(table, 0);
+		return (error_philo("allocation failed\n", table));
+	}
+	if (!init_forks_mutex(table))
+	{
+		free_philos(table, 0);
+		return (error_philo("pthread_mutex_init failed\n", table));
 	}
 	if (!assign_philos(table))
-		return (1);
+		return (error_philo("pthread_mutex_init failed\n", table));
 	return (0);
 }
