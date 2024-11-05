@@ -6,7 +6,7 @@
 #    By: sreerink <sreerink@student.codam.nl>        +#+                       #
 #                                                   +#+                        #
 #    Created: 2024/07/18 20:44:53 by sreerink      #+#    #+#                  #
-#    Updated: 2024/11/04 18:05:44 by sreerink      ########   odam.nl          #
+#    Updated: 2024/11/05 18:49:43 by sreerink      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME= 		philo
 
 RM= 		rm -rf
 
-FLAGS= 		-pthread # -Wall -Werror -Wextra
+FLAGS= 		-Wall -Werror -Wextra -pthread
 
 SRC_DIR=	src
 
