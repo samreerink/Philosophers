@@ -6,7 +6,7 @@
 #    By: sreerink <sreerink@student.codam.nl>        +#+                       #
 #                                                   +#+                        #
 #    Created: 2024/07/18 20:44:53 by sreerink      #+#    #+#                  #
-#    Updated: 2024/11/05 18:49:43 by sreerink      ########   odam.nl          #
+#    Updated: 2024/11/09 20:47:08 by sreerink      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,13 @@ HEADERS=	-I ./include
 
 all:		$(NAME)
 
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(@D)
 	$(CC) $(FLAGS) $(HEADERS) -c $< -o $@
 
-$(NAME): 	$(OBJ)
+$(NAME): 	$(OBJ_DIR) $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
 
 clean:
