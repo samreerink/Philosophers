@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/17 05:12:38 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/11/04 20:08:57 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/09 18:05:04 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@ static void	check_think_time(t_table *table)
 	int	t_think;
 	int	t_eat;
 	int	t_sleep;
-	int	t_die;
 
 	t_think = 0;
 	t_eat = table->time_to_eat;
 	t_sleep = table->time_to_sleep;
-	t_die = table->time_to_die;
 	if (table->philo_n % 2 != 0)
 	{
 		t_think = t_eat * 2 - t_sleep;
