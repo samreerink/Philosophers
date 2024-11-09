@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/22 00:59:32 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/11/04 18:12:26 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/09 18:14:03 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	write_philo_action(t_philo *philo, t_action action)
 {
 	long	timestamp;
 
-	timestamp = get_time() - philo->table->philo_start_time;
 	pthread_mutex_lock(&philo->table->msg_printing);
+	timestamp = get_time() - philo->table->philo_start_time;
 	if (action == DIED)
 		printf("%lu %d died\n", timestamp, philo->philo_id);
 	else if (action == TAKE_FORK && !simulation_finished(philo->table))
