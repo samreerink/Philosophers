@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/19 01:09:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/11/09 22:22:26 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/11 20:03:03 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	improved_usleep(int sleep_time, t_table *table)
 		elapsed = get_time() - start;
 		rem_usec = (sleep_time - elapsed) * 1000;
 		if (rem_usec > 1000)
-			usleep(rem_usec / 2);
+			usleep(500);
 		else
 		{
 			while (get_time() - start < sleep_time)
