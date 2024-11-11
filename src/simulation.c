@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/27 16:16:55 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/11/09 18:19:32 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/11 22:34:01 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*dinner_start(void *data)
 
 int	philo_simulation(t_table *table)
 {
-	if (table->max_nbr_eat == 0)
+	if (table->max_nbr_eat == 0 || table->philo_n == 0)
 		return (0);
 	else
 	{
