@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/11/04 18:05:12 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/11/04 19:39:33 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/21 22:51:20 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@ void	wait_sync_threads(t_philo *philo)
 	table = philo->table;
 	while (!safe_get_bool(&table->table_mutex, &table->threads_ready))
 		;
-	if (table->philo_n % 2 == 0)
-	{
-		if (philo->philo_id % 2 == 0)
-			improved_usleep(3, table);
-	}
+	if (philo->philo_id % 2 == 0)
+		improved_usleep(3, table);
 }
 
 bool	start_philo_threads(t_table *table)
