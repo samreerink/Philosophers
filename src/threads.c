@@ -6,22 +6,11 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/11/04 18:05:12 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/11/21 22:51:20 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/22 20:19:56 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
-void	wait_sync_threads(t_philo *philo)
-{
-	t_table	*table;
-
-	table = philo->table;
-	while (!safe_get_bool(&table->table_mutex, &table->threads_ready))
-		;
-	if (philo->philo_id % 2 == 0)
-		improved_usleep(3, table);
-}
 
 bool	start_philo_threads(t_table *table)
 {
