@@ -1,3 +1,5 @@
 philo
 obj
+.cache
 *.obj
+*.json
