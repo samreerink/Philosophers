@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/10/27 16:16:55 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/11/22 20:19:29 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/28 19:47:08 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	philo_simulation(t_table *table)
 	{
 		if (!start_philo_threads(table))
 			return (1);
-		pthread_create(&table->monitor_thread, NULL, monitor, table);
+		if (!start_monitor_thread(table))
+			return (1);
 		table->philo_start_time = get_time();
 		safe_set_bool(&table->table_mutex, &table->threads_ready, true);
 		join_philo_threads(table, table->philo_n);

@@ -6,7 +6,7 @@
 /*   By: sreerink <sreerink@student.codam.nl>        +#+                      */
 /*                                                  +#+                       */
 /*   Created: 2024/07/18 20:55:10 by sreerink      #+#    #+#                 */
-/*   Updated: 2024/11/22 20:20:06 by sreerink      ########   odam.nl         */
+/*   Updated: 2024/11/28 19:46:42 by sreerink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	safe_set_long(pthread_mutex_t *mtx, long *dest, long new_val);
 long	safe_get_long(pthread_mutex_t *mtx, long *val_to_get);
 void	wait_sync_threads(t_philo *philo);
 bool	start_philo_threads(t_table *table);
+bool	start_monitor_thread(t_table *table);
 void	join_philo_threads(t_table *table, int n);
 bool	simulation_finished(t_table *table);
 long	get_time(void);
